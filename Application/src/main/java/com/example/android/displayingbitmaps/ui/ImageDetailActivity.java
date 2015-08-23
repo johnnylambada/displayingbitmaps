@@ -31,7 +31,7 @@ import sigseg.displayingbitmaps.ui.DisplayingBitmapsView;
 import sigseg.displayingbitmaps.ui.ImageDetailFragment;
 import sigseg.displayingbitmaps.util.ImageFetcher;
 
-public class ImageDetailActivity extends FragmentActivity implements ImageDetailFragment.ImageFetcherProvider {
+public class ImageDetailActivity extends FragmentActivity {
 
     private DisplayingBitmapsView pager;
 
@@ -51,7 +51,6 @@ public class ImageDetailActivity extends FragmentActivity implements ImageDetail
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_cache:
-                pager.getImageFetcher().clearCache();
                 Toast.makeText(
                         this, R.string.clear_cache_complete_toast,Toast.LENGTH_SHORT).show();
                 return true;
@@ -63,14 +62,6 @@ public class ImageDetailActivity extends FragmentActivity implements ImageDetail
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
-    }
-
-    /**
-     * Called by the ViewPager child fragments to load images via the one ImageFetcher
-     */
-    @Override
-    public ImageFetcher getImageFetcher() {
-        return pager.getImageFetcher();
     }
 
 }

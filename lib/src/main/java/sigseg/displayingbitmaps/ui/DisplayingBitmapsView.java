@@ -12,15 +12,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import sigseg.displayingbitmaps.util.ImageCache;
-import sigseg.displayingbitmaps.util.ImageFetcher;
-
 public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
     private static final String IMAGE_CACHE_DIR = "images";
     private final FragmentActivity activity;
     private final List<String> imageUrls = new ArrayList<>();
     private ImagePagerAdapter adapter;
-    private ImageFetcher imageFetcher;
 
     public DisplayingBitmapsView(Context context) {
         this(context, null);
@@ -30,21 +26,6 @@ public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
         super(context, attrs);
 
         activity = (FragmentActivity)context;
-
-        ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(context, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.25f); // Set memory cache to 25% of app memory
-        final DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        final int height = displayMetrics.heightPixels;
-        final int width = displayMetrics.widthPixels;
-        final int longest = (height > width ? height : width) / 2;
-
-
-        // The ImageFetcher takes care of loading images into our ImageView children asynchronously
-        imageFetcher = new ImageFetcher(context, longest);
-        imageFetcher.addImageCache(activity.getSupportFragmentManager(), cacheParams);
-        imageFetcher.setImageFadeIn(false);
 
         adapter = new ImagePagerAdapter(activity.getSupportFragmentManager());
         setAdapter(adapter);
@@ -61,10 +42,6 @@ public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
     public void addImageUrls(Collection<? extends String> imageUrls){
         this.imageUrls.addAll(imageUrls);
         adapter.notifyDataSetChanged();
-    }
-
-    public ImageFetcher getImageFetcher(){
-        return imageFetcher;
     }
 
     /**

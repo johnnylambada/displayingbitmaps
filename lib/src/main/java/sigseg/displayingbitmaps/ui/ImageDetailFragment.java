@@ -24,6 +24,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import sigseg.displayingbitmaps.lib.R;
 import sigseg.displayingbitmaps.util.ImageFetcher;
 import sigseg.displayingbitmaps.util.ImageWorker;
@@ -36,7 +38,6 @@ public class ImageDetailFragment extends Fragment {
     private static final String IMAGE_DATA_EXTRA = "extra_image_data";
     private String mImageUrl;
     private ImageView mImageView;
-    private ImageFetcher mImageFetcher;
 
     /**
      * Factory method to generate a new instance of the fragment given an image number.
@@ -82,12 +83,7 @@ public class ImageDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Use the parent activity to load the image asynchronously into the ImageView (so a single
-        // cache can be used over all pages in the ViewPager
-        if (ImageFetcherProvider.class.isInstance(getActivity())) {
-            mImageFetcher = ((ImageFetcherProvider) getActivity()).getImageFetcher();
-            mImageFetcher.loadImage(mImageUrl, mImageView);
-        }
+        Glide.with(this).load(mImageUrl).centerCrop().into(mImageView);
 
         // Pass clicks on the ImageView to the parent activity to handle
         if (OnClickListener.class.isInstance(getActivity()) && Utils.hasHoneycomb()) {
@@ -103,9 +99,5 @@ public class ImageDetailFragment extends Fragment {
             ImageWorker.cancelWork(mImageView);
             mImageView.setImageDrawable(null);
         }
-    }
-
-    public interface ImageFetcherProvider {
-        ImageFetcher getImageFetcher();
     }
 }
