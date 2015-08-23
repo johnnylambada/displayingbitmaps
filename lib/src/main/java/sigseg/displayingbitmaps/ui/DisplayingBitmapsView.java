@@ -19,6 +19,7 @@ package sigseg.displayingbitmaps.ui;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.AttributeSet;
 
@@ -26,9 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
-    private final FragmentActivity activity;
+
+    private FragmentManager fragmentManager;
+    private ImagePagerAdapter adapter;
     private final List<String> imageUrls = new ArrayList<>();
-    private final ImagePagerAdapter adapter;
 
     public DisplayingBitmapsView(Context context) {
         this(context, null);
@@ -37,12 +39,14 @@ public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
     public DisplayingBitmapsView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        activity = (FragmentActivity)context;
-
-        adapter = new ImagePagerAdapter();
-        setAdapter(adapter);
         setOffscreenPageLimit(2);
 
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager){
+        this.fragmentManager = fragmentManager;
+        adapter = new ImagePagerAdapter();
+        setAdapter(adapter);
     }
 
     public void addImageUrls(String[] imageUrls){
@@ -59,7 +63,7 @@ public class DisplayingBitmapsView extends android.support.v4.view.ViewPager{
     private class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
         public ImagePagerAdapter() {
-            super(activity.getSupportFragmentManager());
+            super(fragmentManager);
         }
 
         @Override
