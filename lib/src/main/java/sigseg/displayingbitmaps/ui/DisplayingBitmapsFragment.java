@@ -82,7 +82,7 @@ public class DisplayingBitmapsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (imageUrl!=null)
-            Glide.with(this).load(imageUrl).into(imageView);
+            Glide.with(this).load(imageUrl).centerCrop().into(imageView);
 
         // Pass clicks on the ImageView to the parent activity to handle
         if (OnClickListener.class.isInstance(getActivity()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
