@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.displayingbitmaps.util;
+package sigseg.displayingbitmaps.util;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
-import android.os.StrictMode;
-
-import com.example.android.displayingbitmaps.ui.ImageDetailActivity;
 
 /**
  * Class containing some static utility methods.

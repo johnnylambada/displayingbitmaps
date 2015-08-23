@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.displayingbitmaps.util;
+package sigseg.displayingbitmaps.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,10 +22,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.android.displayingbitmaps.BuildConfig;
-import com.example.android.displayingbitmaps.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -94,9 +90,6 @@ public class ImageFetcher extends ImageResizer {
             if (ImageCache.getUsableSpace(mHttpCacheDir) > HTTP_CACHE_SIZE) {
                 try {
                     mHttpDiskCache = DiskLruCache.open(mHttpCacheDir, 1, 1, HTTP_CACHE_SIZE);
-                    if (BuildConfig.DEBUG) {
-                        Log.d(TAG, "HTTP cache initialized");
-                    }
                 } catch (IOException e) {
                     mHttpDiskCache = null;
                 }
@@ -113,9 +106,6 @@ public class ImageFetcher extends ImageResizer {
             if (mHttpDiskCache != null && !mHttpDiskCache.isClosed()) {
                 try {
                     mHttpDiskCache.delete();
-                    if (BuildConfig.DEBUG) {
-                        Log.d(TAG, "HTTP cache cleared");
-                    }
                 } catch (IOException e) {
                     Log.e(TAG, "clearCacheInternal - " + e);
                 }
@@ -133,9 +123,6 @@ public class ImageFetcher extends ImageResizer {
             if (mHttpDiskCache != null) {
                 try {
                     mHttpDiskCache.flush();
-                    if (BuildConfig.DEBUG) {
-                        Log.d(TAG, "HTTP cache flushed");
-                    }
                 } catch (IOException e) {
                     Log.e(TAG, "flush - " + e);
                 }
@@ -152,9 +139,6 @@ public class ImageFetcher extends ImageResizer {
                     if (!mHttpDiskCache.isClosed()) {
                         mHttpDiskCache.close();
                         mHttpDiskCache = null;
-                        if (BuildConfig.DEBUG) {
-                            Log.d(TAG, "HTTP cache closed");
-                        }
                     }
                 } catch (IOException e) {
                     Log.e(TAG, "closeCacheInternal - " + e);
@@ -173,7 +157,6 @@ public class ImageFetcher extends ImageResizer {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
-            Toast.makeText(context, R.string.no_network_connection_toast, Toast.LENGTH_LONG).show();
             Log.e(TAG, "checkConnection - no connection found");
         }
     }
@@ -186,9 +169,6 @@ public class ImageFetcher extends ImageResizer {
      * @return The downloaded and resized bitmap
      */
     private Bitmap processBitmap(String data) {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "processBitmap - " + data);
-        }
 
         final String key = ImageCache.hashKeyForDisk(data);
         FileDescriptor fileDescriptor = null;
@@ -206,9 +186,6 @@ public class ImageFetcher extends ImageResizer {
                 try {
                     snapshot = mHttpDiskCache.get(key);
                     if (snapshot == null) {
-                        if (BuildConfig.DEBUG) {
-                            Log.d(TAG, "processBitmap, not found in http cache, downloading...");
-                        }
                         DiskLruCache.Editor editor = mHttpDiskCache.edit(key);
                         if (editor != null) {
                             if (downloadUrlToStream(data,

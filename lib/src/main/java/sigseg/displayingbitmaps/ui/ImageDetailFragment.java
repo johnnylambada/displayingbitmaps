@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.displayingbitmaps.ui;
+package sigseg.displayingbitmaps.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,13 +24,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.android.displayingbitmaps.R;
-import com.example.android.displayingbitmaps.util.ImageFetcher;
-import com.example.android.displayingbitmaps.util.ImageWorker;
-import com.example.android.displayingbitmaps.util.Utils;
+import sigseg.displayingbitmaps.lib.R;
+import sigseg.displayingbitmaps.util.ImageFetcher;
+import sigseg.displayingbitmaps.util.ImageWorker;
+import sigseg.displayingbitmaps.util.Utils;
 
 /**
- * This fragment will populate the children of the ViewPager from {@link ImageDetailActivity}.
+ * This fragment will populate the children of the ViewPager from ImageDetailActivity.
  */
 public class ImageDetailFragment extends Fragment {
     private static final String IMAGE_DATA_EXTRA = "extra_image_data";
@@ -84,8 +84,8 @@ public class ImageDetailFragment extends Fragment {
 
         // Use the parent activity to load the image asynchronously into the ImageView (so a single
         // cache can be used over all pages in the ViewPager
-        if (ImageDetailActivity.class.isInstance(getActivity())) {
-            mImageFetcher = ((ImageDetailActivity) getActivity()).getImageFetcher();
+        if (ImageFetcherProvider.class.isInstance(getActivity())) {
+            mImageFetcher = ((ImageFetcherProvider) getActivity()).getImageFetcher();
             mImageFetcher.loadImage(mImageUrl, mImageView);
         }
 
@@ -103,5 +103,9 @@ public class ImageDetailFragment extends Fragment {
             ImageWorker.cancelWork(mImageView);
             mImageView.setImageDrawable(null);
         }
+    }
+
+    public interface ImageFetcherProvider {
+        ImageFetcher getImageFetcher();
     }
 }

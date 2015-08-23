@@ -31,10 +31,11 @@ import android.widget.Toast;
 
 import com.example.android.displayingbitmaps.R;
 import com.example.android.displayingbitmaps.provider.Images;
-import com.example.android.displayingbitmaps.util.ImageCache;
-import com.example.android.displayingbitmaps.util.ImageFetcher;
+import sigseg.displayingbitmaps.ui.ImageDetailFragment;
+import sigseg.displayingbitmaps.util.ImageCache;
+import sigseg.displayingbitmaps.util.ImageFetcher;
 
-public class ImageDetailActivity extends FragmentActivity {
+public class ImageDetailActivity extends FragmentActivity implements ImageDetailFragment.ImageFetcherProvider {
     private static final String IMAGE_CACHE_DIR = "images";
 
     private ImagePagerAdapter mAdapter;
@@ -110,6 +111,7 @@ public class ImageDetailActivity extends FragmentActivity {
     /**
      * Called by the ViewPager child fragments to load images via the one ImageFetcher
      */
+    @Override
     public ImageFetcher getImageFetcher() {
         return mImageFetcher;
     }
