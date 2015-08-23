@@ -30,21 +30,21 @@ import sigseg.displayingbitmaps.lib.R;
 import sigseg.displayingbitmaps.util.Utils;
 
 /**
- * This fragment will populate the children of the ViewPager from ImageDetailActivity.
+ * This fragment will populate the children of the DisplayingBitmapsView.
  */
-public class ImageDetailFragment extends Fragment {
+public class DisplayingBitmapsFragment extends Fragment {
     private static final String IMAGE_DATA_EXTRA = "extra_image_data";
-    private String mImageUrl;
-    private ImageView mImageView;
+    private String imageUrl;
+    private ImageView imageView;
 
     /**
      * Factory method to generate a new instance of the fragment given an image number.
      *
      * @param imageUrl The image url to load
-     * @return A new instance of ImageDetailFragment with imageNum extras
+     * @return A new instance of DisplayingBitmapsFragment with imageNum extras
      */
-    public static ImageDetailFragment newInstance(String imageUrl) {
-        final ImageDetailFragment f = new ImageDetailFragment();
+    public static DisplayingBitmapsFragment newInstance(String imageUrl) {
+        final DisplayingBitmapsFragment f = new DisplayingBitmapsFragment();
 
         final Bundle args = new Bundle();
         args.putString(IMAGE_DATA_EXTRA, imageUrl);
@@ -56,16 +56,16 @@ public class ImageDetailFragment extends Fragment {
     /**
      * Empty constructor as per the Fragment documentation
      */
-    public ImageDetailFragment() {}
+    public DisplayingBitmapsFragment() {}
 
     /**
      * Populate image using a url from extras, use the convenience factory method
-     * {@link ImageDetailFragment#newInstance(String)} to create this fragment.
+     * {@link DisplayingBitmapsFragment#newInstance(String)} to create this fragment.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mImageUrl = getArguments() != null ? getArguments().getString(IMAGE_DATA_EXTRA) : null;
+        imageUrl = getArguments() != null ? getArguments().getString(IMAGE_DATA_EXTRA) : null;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ImageDetailFragment extends Fragment {
             Bundle savedInstanceState) {
         // Inflate and locate the main ImageView
         final View v = inflater.inflate(R.layout.image_detail_fragment, container, false);
-        mImageView = (ImageView) v.findViewById(R.id.imageView);
+        imageView = (ImageView) v.findViewById(R.id.imageView);
         return v;
     }
 
@@ -81,11 +81,11 @@ public class ImageDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Glide.with(this).load(mImageUrl).centerCrop().into(mImageView);
+        Glide.with(this).load(imageUrl).centerCrop().into(imageView);
 
         // Pass clicks on the ImageView to the parent activity to handle
         if (OnClickListener.class.isInstance(getActivity()) && Utils.hasHoneycomb()) {
-            mImageView.setOnClickListener((OnClickListener) getActivity());
+            imageView.setOnClickListener((OnClickListener) getActivity());
         }
     }
 

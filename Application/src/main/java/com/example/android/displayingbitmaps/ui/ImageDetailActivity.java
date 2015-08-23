@@ -16,13 +16,8 @@
 
 package com.example.android.displayingbitmaps.ui;
 
-import android.annotation.TargetApi;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.android.displayingbitmaps.R;
 import com.example.android.displayingbitmaps.provider.Images;
@@ -33,7 +28,6 @@ public class ImageDetailActivity extends FragmentActivity {
 
     private DisplayingBitmapsView pager;
 
-    @TargetApi(VERSION_CODES.HONEYCOMB)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,23 +37,6 @@ public class ImageDetailActivity extends FragmentActivity {
         pager = (DisplayingBitmapsView) findViewById(R.id.pager);
         pager.setPageMargin((int) getResources().getDimension(R.dimen.horizontal_page_margin));
         pager.addImageUrls(Images.imageUrls);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clear_cache:
-                Toast.makeText(
-                        this, R.string.clear_cache_complete_toast,Toast.LENGTH_SHORT).show();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
     }
 
 }
