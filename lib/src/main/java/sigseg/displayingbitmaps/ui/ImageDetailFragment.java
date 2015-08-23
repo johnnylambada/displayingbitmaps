@@ -27,8 +27,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import sigseg.displayingbitmaps.lib.R;
-import sigseg.displayingbitmaps.util.ImageFetcher;
-import sigseg.displayingbitmaps.util.ImageWorker;
 import sigseg.displayingbitmaps.util.Utils;
 
 /**
@@ -91,13 +89,4 @@ public class ImageDetailFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mImageView != null) {
-            // Cancel any pending image work
-            ImageWorker.cancelWork(mImageView);
-            mImageView.setImageDrawable(null);
-        }
-    }
 }

@@ -28,8 +28,6 @@ import com.example.android.displayingbitmaps.R;
 import com.example.android.displayingbitmaps.provider.Images;
 
 import sigseg.displayingbitmaps.ui.DisplayingBitmapsView;
-import sigseg.displayingbitmaps.ui.ImageDetailFragment;
-import sigseg.displayingbitmaps.util.ImageFetcher;
 
 public class ImageDetailActivity extends FragmentActivity {
 
