@@ -48,25 +48,6 @@ public class ImageDetailActivity extends FragmentActivity implements ImageDetail
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        pager.getImageFetcher().setExitTasksEarly(false);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        pager.getImageFetcher().setExitTasksEarly(true);
-        pager.getImageFetcher().flushCache();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        pager.getImageFetcher().closeCache();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_cache:
