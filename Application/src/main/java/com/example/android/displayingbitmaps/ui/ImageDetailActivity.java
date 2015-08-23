@@ -36,6 +36,7 @@ public class ImageDetailActivity extends FragmentActivity {
         // Set up ViewPager
         pager = (DisplayingBitmapsView) findViewById(R.id.pager);
         pager.setPageMargin((int) getResources().getDimension(R.dimen.horizontal_page_margin));
+        pager.setFragmentManager(getSupportFragmentManager());
         pager.addImageUrls(Images.imageUrls);
     }
 
