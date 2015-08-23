@@ -16,6 +16,7 @@
 
 package sigseg.displayingbitmaps.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +28,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import sigseg.displayingbitmaps.lib.R;
-import sigseg.displayingbitmaps.util.Utils;
 
 /**
  * This fragment will populate the children of the DisplayingBitmapsView.
@@ -81,10 +81,11 @@ public class DisplayingBitmapsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Glide.with(this).load(imageUrl).centerCrop().into(imageView);
+        if (imageUrl!=null)
+            Glide.with(this).load(imageUrl).into(imageView);
 
         // Pass clicks on the ImageView to the parent activity to handle
-        if (OnClickListener.class.isInstance(getActivity()) && Utils.hasHoneycomb()) {
+        if (OnClickListener.class.isInstance(getActivity()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             imageView.setOnClickListener((OnClickListener) getActivity());
         }
     }
