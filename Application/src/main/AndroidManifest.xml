@@ -32,21 +32,14 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppThemeDark">
 
-        <activity android:name=".ui.ImageGridActivity"
-                  android:label="@string/app_name">
+        <activity
+            android:name=".ui.ImageDetailActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppThemeDark.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.ImageDetailActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".ui.ImageGridActivity"
-            android:theme="@style/AppThemeDark.FullScreen" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ImageGridActivity" />
         </activity>
 
     </application>

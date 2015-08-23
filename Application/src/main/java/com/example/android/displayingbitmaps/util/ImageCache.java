@@ -30,8 +30,8 @@ import android.os.StatFs;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 
-import com.example.android.common.logger.Log;
 import com.example.android.displayingbitmaps.BuildConfig;
 
 import java.io.File;

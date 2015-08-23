@@ -19,8 +19,8 @@ package com.example.android.displayingbitmaps.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 
-import com.example.android.common.logger.Log;
 import com.example.android.displayingbitmaps.BuildConfig;
 
 /**
